@@ -1,0 +1,103 @@
+﻿<Window
+    x:Class="SaleSystemLivet.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+    xmlns:v="clr-namespace:SaleSystemLivet.Views"
+    xmlns:vm="clr-namespace:SaleSystemLivet.ViewModels"
+    xmlns:util="clr-namespace:SaleSystemLivet.Localization"
+    Title="MainWindow"
+    Width="814"
+    Height="608"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        
+        <DataTemplate DataType="{x:Type vm:IndexViewModel}">
+            <v:Index/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductViewModel}">
+            <v:Product/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrderViewModel}">
+            <v:Order/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AboutViewModel}">
+            <v:About/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddProductViewModel}">
+            <v:AddProduct/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EditProductViewModel}">
+            <v:EditProduct/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductDetailViewModel}">
+            <v:ProductDetail/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrderHistoryViewModel}">
+            <v:OrderHistory/>
+        </DataTemplate>
+
+        <Style x:Key="HeaderStyle" TargetType="Button">
+            <Setter Property="Background" Value="Azure" />
+            <!--StyleにTrriggerを定義-->
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <!--IsFocusedがTrueの場合、下の値を適用-->
+                    <Setter Property="Background" Value="Lavender" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <!--  When ContentRendered event raised, Initialize method of ViewModel would be called.  -->
+        <!--<i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodName="Initialize" MethodTarget="{Binding}" />
+        </i:EventTrigger>-->
+
+        <!--  Dispose method is called, when Window closing.  -->
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction />
+        </i:EventTrigger>
+
+        <!--  If you make user choose 'OK or Cancel' closing Window, then please use Window Close cancel Behavior.  -->
+        
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="5" Background="AliceBlue">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding ShowIndexCommand}" Content="{util:Localization Index_Button}" Style="{StaticResource HeaderStyle}" Margin="22" Width="155" Height="50" VerticalAlignment="Center" FontSize="16"/>
+                <Button Command="{Binding ShowProductCommand}" Content="{util:Localization Product_Button}" Style="{StaticResource HeaderStyle}" Margin="22" Width="155" Height="50" VerticalAlignment="Center" FontSize="16"/>
+                <Button Command="{Binding ShowOrderCommand}" Content="{util:Localization Order_Button}" Style="{StaticResource HeaderStyle}" Margin="22" Width="155" Height="50" VerticalAlignment="Center" FontSize="16"/>
+                <Button Command="{Binding ShowAboutCommand}" Content="{util:Localization About_Button}" Style="{StaticResource HeaderStyle}" Margin="22" Width="155" Height="50" VerticalAlignment="Center" FontSize="16"/>
+            </StackPanel>
+        </DockPanel>
+
+        <ContentControl Content="{Binding ViewModel}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"/>
+    </Grid>
+
+</Window>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SaleSystemWPF.Views.AboutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleSystemWPF.Views"
+             xmlns:util="clr-namespace:SaleSystemWPF.Localization"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Honeydew">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50">
+            <Label HorizontalAlignment="Center" FontSize="24" Content="{util:Localization Sale_System}"></Label>
+            <Label HorizontalAlignment="Center" FontStyle="Italic" Content="{util:Localization Author}"></Label>
+            <Label HorizontalAlignment="Center" Content="{util:Localization About_1}"></Label>
+            <Label HorizontalAlignment="Center" Content="{util:Localization About_2}"></Label>
+            <Label HorizontalAlignment="Center" Content="{util:Localization About_3}"></Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

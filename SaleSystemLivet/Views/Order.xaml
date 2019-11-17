@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="SaleSystemLivet.Views.Order"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:v="clr-namespace:SaleSystemLivet.Views"
+        xmlns:vm="clr-namespace:SaleSystemLivet.ViewModels"
+        xmlns:util="clr-namespace:SaleSystemLivet.Localization"
+        xmlns:helper="clr-namespace:SaleSystemLivet.Helpers"
+        Height="500" Width="800">
+
+    <UserControl.DataContext>
+        <vm:OrderViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <helper:BindingProxy x:Key="BindingProxy" Data="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext}" />
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <!-- When ContentRendered event raised, Initialize method of ViewModel would be called. -->
+        <!--<i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize" />
+        </i:EventTrigger>-->
+
+        <!-- Dispose method is called, when Window closing. -->
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction />
+        </i:EventTrigger>
+
+        <!-- If you make user choose 'OK or Cancel' closing Window, then please use Window Close cancel Behavior. -->
+        <l:InteractionMessageTrigger MessageKey="Confirm" Messenger="{Binding Messenger}" >
+            <l:ConfirmationDialogInteractionMessageAction/>
+        </l:InteractionMessageTrigger>
+
+    </i:Interaction.Triggers>
+
+    <Grid Background="Honeydew">
+        <Label HorizontalAlignment="Center" FontSize="18" Content="{util:Localization Order_View}"></Label>
+        <StackPanel Orientation="Vertical">
+            <Button Command="{Binding AddOrderCommand}" Content="{util:Localization Add_New_Order_Button}" Margin="10,30,10,5" Padding="5" HorizontalAlignment="Left"/>
+            <Button 
+                Command="{Binding 
+                    Data.ShowOrderHistoryCommand, 
+                    Source={StaticResource BindingProxy}}" 
+                Content="{util:Localization View_Order_History_Button}" 
+                Margin="110,-32,10,5" Padding="5" HorizontalAlignment="Left"/>
+            <Button Command="{Binding SubmitOrderCommand}" Content="{util:Localization Submit_Order_Button}" Margin="10,-32,10,5" Padding="5" HorizontalAlignment="Right"/>
+            <DataGrid ItemsSource="{Binding OrderList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" 
+                      Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowBackground="#fff" 
+                      FontWeight="Bold" Foreground="#525252" ScrollViewer.CanContentScroll="True" CanUserSortColumns="False"
+                      Height="341" MaxHeight="341" MaxWidth="769" AlternatingRowBackground="#f2f2f2" BorderBrush="#000" BorderThickness="1" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="{util:Localization Product_Name_Column}" Width="121">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox 
+                                    ItemsSource="{Binding 
+                                        Path=DataContext.ProductList, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                    SelectedValuePath="ProductId" 
+                                    DisplayMemberPath="ProductName"
+                                    SelectedValue="{Binding 
+                                        ProductId, 
+                                        UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="{util:Localization Product_Description_Column}" Binding="{Binding Description}" Width="160" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="{util:Localization Product_Unit_Column}" Binding="{Binding Unit}" Width="120" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="{util:Localization Retail_Price_Column}" Binding="{Binding Price}" Width="120" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="{util:Localization Quantity_Column}" Binding="{Binding Quantity}" Width="120"/>
+                    <DataGridTextColumn Header="{util:Localization Total_Price_Column}" Binding="{Binding TotalPrice}" Width="120" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding TotalPriceBefore}" IsReadOnly="True" Visibility="Hidden"/>
+                </DataGrid.Columns>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CurrentCellChanged">
+                        <l:LivetCallMethodAction MethodName="CalculateGridTotal" MethodTarget="{Binding Mode=OneWay}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </DataGrid>
+            <Grid>                
+                <Label Content="Quantity (All):" HorizontalAlignment="Right" Margin="5,5,280,5" />
+                <Label Content="Price (All):" HorizontalAlignment="Right" Margin="5,5,115,5" />
+                <TextBox Text="{Binding AllQuantity, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="20" HorizontalAlignment="Right" Margin="5,5,180,5" IsReadOnly="True" Background="GhostWhite" />
+                <TextBox Text="{Binding AllPrice, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="20" HorizontalAlignment="Right" Margin="5,5,15,5" IsReadOnly="True" Background="GhostWhite" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

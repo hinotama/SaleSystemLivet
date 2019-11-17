@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="SaleSystemWPF.Views.AddProductView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleSystemWPF.Views"
+             xmlns:util="clr-namespace:SaleSystemWPF.Localization"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Honeydew">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="2">
+            <Label HorizontalAlignment="Center" FontSize="18" Content="{util:Localization Add_Product_View}"></Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <Label Margin="5" Content="{util:Localization Product_Label}"></Label>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <Label Margin="5" Content="{util:Localization Description_Label}"></Label>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="2">
+            <Label Margin="5" Content="{util:Localization Price_Label}"></Label>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="2">
+            <Label Margin="5" Content="{util:Localization Unit_Label}"></Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2">
+            <TextBox Name="textBoxProductName" Height="30" Margin="5"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <TextBox Name="textBoxDescription" Height="105" Margin="5" TextWrapping="Wrap"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2">
+            <TextBox Name="textBoxPrice" Height="30" Margin="5"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2">
+            <TextBox Name="textBoxUnit" Height="30" Margin="5"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Grid.Column="3">
+            <Button Name="buttonSave" Content="{util:Localization Save_Button}" Height="30" Margin="5" Click="ButtonSave_Click"></Button>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="4">
+            <Button Name="buttonReset" Content="{util:Localization Reset_Button}" Height="30" Margin="5" Click="ButtonReset_Click"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="8" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="4">
+            <TextBlock Name="textBlockResponseMessage" Width="390" Height="80" Margin="5" Foreground="Red"></TextBlock>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

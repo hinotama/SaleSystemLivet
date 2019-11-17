@@ -1,0 +1,67 @@
+﻿<Window x:Class="SaleSystemWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaleSystemWPF"
+        xmlns:util="clr-namespace:SaleSystemWPF.Localization"
+        xmlns:viewmodels="clr-namespace:SaleSystemWPF.ViewModels"
+        xmlns:views="clr-namespace:SaleSystemWPF.Views"
+        mc:Ignorable="d"
+        Title="{util:Localization Title}" Height="500" Width="800" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <DataTemplate x:Name="indexView" DataType="{x:Type viewmodels:IndexViewModel}">
+            <views:IndexView/>
+        </DataTemplate>
+        <DataTemplate x:Name="productView" DataType="{x:Type viewmodels:ProductViewModel}">
+            <views:ProductView/>
+        </DataTemplate>
+        <DataTemplate x:Name="orderView" DataType="{x:Type viewmodels:OrderViewModel}">
+            <views:OrderView/>
+        </DataTemplate>
+        <DataTemplate x:Name="addProductView" DataType="{x:Type viewmodels:AddProductViewModel}">
+            <views:AddProductView/>
+        </DataTemplate>
+        <DataTemplate x:Name="editProductView" DataType="{x:Type viewmodels:EditProductViewModel}">
+            <views:EditProductView/>
+        </DataTemplate>
+        <DataTemplate x:Name="showProductView" DataType="{x:Type viewmodels:ShowProductViewModel}">
+            <views:ShowProductView/>
+        </DataTemplate>
+        <DataTemplate x:Name="orderHistoryView" DataType="{x:Type viewmodels:OrderHistoryViewModel}">
+            <views:OrderHistoryView/>
+        </DataTemplate>
+        <DataTemplate x:Name="aboutView" DataType="{x:Type viewmodels:AboutViewModel}">
+            <views:AboutView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="5" Background="AliceBlue">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{util:Localization Index_Button}" Click="IndexView_Clicked" Margin="20" Width="155" Height="50" VerticalAlignment="Center" FontSize="16" Background="Azure"/>
+                <Button Content="{util:Localization Product_Button}" Click="ProductView_Clicked" Margin="20" Width="155" Height="50" VerticalAlignment="Center" FontSize="16" Background="Azure"/>
+                <Button Content="{util:Localization Order_Button}" Click="OrderView_Clicked" Margin="20" Width="155" Height="50" VerticalAlignment="Center" FontSize="16" Background="Azure"/>
+                <Button Content="{util:Localization About_Button}" Click="AboutView_Clicked" Margin="20" Width="155" Height="50" VerticalAlignment="Center" FontSize="16" Background="Azure"/>
+            </StackPanel>
+        </DockPanel>
+
+        <ContentControl Name="mainContent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4"/>
+    </Grid>
+</Window>
